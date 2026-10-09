@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Block extends SubsystemBase {
+    
     public static TalonFX block = new TalonFX(2,"rio");
+
     final PositionVoltage m_block = new PositionVoltage(0).withSlot(0);
 
     @Override
@@ -28,21 +30,20 @@ public class Block extends SubsystemBase {
     }
 
     public Command Up(){
-return Commands.runOnce(
-    () -> {
-        blockUp();
+        return Commands.runOnce(
+            () -> {
+              blockUp();
+            }
+        );
     }
-);
-
-}
 
 
-public Command Down(){
-    return Commands.runOnce(
-        () -> {
-            blockDown();
-        }
-    );
-}
+    public Command Down(){
+        return Commands.runOnce(
+            () -> {
+                blockDown();
+            }
+        );
+    }
 
 }
