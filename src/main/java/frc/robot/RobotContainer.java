@@ -81,7 +81,7 @@ public class RobotContainer {
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
                 drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
         );
@@ -95,19 +95,17 @@ public class RobotContainer {
 
         joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
-            point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
-        ));
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-  Xbox.x().whileTrue(block.Up()).whileFalse(block.Down());
-   /*  Xbox.rightTrigger().whileTrue(shooter.Intake()).whileFalse(shooter.DRUMOFF());
-    Xbox.leftTrigger().whileTrue(shooter.DRUMCLEAR()).whileFalse(shooter.DRUMOFF());
-    Xbox.rightBumper().whileTrue(shooter.HopperDump()).whileFalse(shooter.DRUMOFF());
-    Xbox.x().whileTrue(kicker.FEED()).whileFalse(kicker.KICKEROFF());
-    Xbox.y().whileTrue(kicker.REVERSE()).whileFalse(kicker.KICKEROFF());
-    /* */
+
+
+        point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
+        ));
+
+        joystick.leftTrigger().onTrue(block.Down());
+        joystick.rightTrigger().onTrue(block.Up());
+
+        RobotModeTriggers.teleop().onTrue(block.Zero());
+
   }
 
   /**
